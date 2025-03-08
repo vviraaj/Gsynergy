@@ -1,11 +1,11 @@
 import { Modal, Select, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { updateWeekSales } from "../redux/weekSalesSlice";
-import { updateSKU } from "../redux/skuSlice";
-import { RootState } from "../redux/store";
+import { updateWeekSales } from "../../redux/weekSalesSlice";
+import { updateSKU } from "../../redux/skuSlice";
+import { RootState } from "../../redux/store";
 import { toast } from "react-toastify";
-import { SKU } from "../types";
+import { SKU } from "../../types";
 
 interface WeekSale {
   id: string;

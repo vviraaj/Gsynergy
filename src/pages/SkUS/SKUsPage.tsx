@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table, Modal, Input, Button, Select } from "antd";
 import { Calendar, Pencil, Plus, Trash2 } from "lucide-react";
-import { addSKU, updateSKU, removeSKU } from "../redux/skuSlice";
-import { RootState } from "../redux/store";
-import { classSkusUnique, defaultSkus, DepartmentSkus, SKU } from "../types";
+import { addSKU, updateSKU, removeSKU } from "../../redux/skuSlice";
+import { RootState } from "../../redux/store";
+import { classSkusUnique, defaultSkus, DepartmentSkus, SKU } from "../../types";
 import { toast, ToastContainer } from "react-toastify";
-import FormModal from "../components/formModal";
-import { addWeekSales, updateWeekSales } from "../redux/weekSalesSlice";
-import CalendarMarkedModal from "../components/markedCalendarModal";
+import FormModal from "./formModal";
+import CalendarMarkedModal from "./markedCalendarModal";
 
 export default function SKUsPage() {
   const dispatch = useDispatch();

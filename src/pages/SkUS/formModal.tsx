@@ -1,6 +1,6 @@
 import { Input, Modal, Select } from "antd";
 import React from "react";
-import { SKU } from "../types";
+import { SKU } from "../../types";
 
 interface FormDataModalProps {
   formData: SKU;

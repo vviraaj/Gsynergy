@@ -45,7 +45,7 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful!");
       setTimeout(() => {
-        navigate("/");
+        navigate("/stores");
       }, 2000);
     }
 
