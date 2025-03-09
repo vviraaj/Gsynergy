@@ -40,7 +40,6 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
   >({});
   const skus = useSelector((state: RootState) => state.skus.skus);
 
-  // Sync local state with Redux when modal opens
   useEffect(() => {
     if (!markedModalId || !weekSales || !markedModalOpen) return;
 
@@ -70,7 +69,6 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
     setLocalWeekSales(newSalesData);
   }, [formData.week, weekSales, markedModalId, markedModalOpen]);
 
-  // Handle input changes
   const handleInputChange = (
     week: number,
     field: keyof WeekSale,
@@ -87,7 +85,6 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
     }));
   };
 
-  // Dispatch all updates to Redux only on submit
   const handleSave = () => {
     const findDta: SKU | undefined = skus.find(
       (item) => item.id === markedModalId
@@ -107,7 +104,6 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
 
     closeModal();
   };
-
 
   return (
     <Modal
@@ -130,6 +126,9 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
           }
           className="w-full"
           size="large"
+          dropdownMatchSelectWidth={false}
+          getPopupContainer={(triggerNode) => triggerNode.parentNode}
+          placement="topLeft"
         >
           {Array.from({ length: 52 }, (_, i) => (
             <Select.Option key={i + 1} value={i + 1}>
@@ -139,57 +138,64 @@ const CalendarMarkedModal: React.FC<CalendarMarkedModalProps> = ({
         </Select>
       </div>
 
-      {formData.week.map((week: any) => (
-        <div key={week} className="mt-4 p-4 border rounded">
-          <h3 className="text-lg font-semibold">Week {week}</h3>
-          <div className="flex justify-start items-center space-x-2">
-            {/* Sales Unit Input */}
-            <div>
-              <label>
-                Sales Unit<span className="text-red-400">*</span>
-              </label>
-              <Input
-                placeholder="Sales Units"
-                type="number"
-                value={localWeekSales[week]?.salesUnits || 0}
-                onChange={(e) =>
-                  handleInputChange(week, "salesUnits", Number(e.target.value))
-                }
-              />
-            </div>
+      {formData.week.length > 0 && (
+        <div className="max-h-[50vh] overflow-y-auto p-2 mt-5 border rounded">
+          {formData.week.map((week: any) => (
+            <div key={week} className="mt-4 p-4 border rounded">
+              <h3 className="text-lg font-semibold">Week {week}</h3>
+              <div className="flex justify-start items-center space-x-2">
+                <div>
+                  <label>
+                    Sales Unit<span className="text-red-400">*</span>
+                  </label>
+                  <Input
+                    placeholder="Sales Units"
+                    type="number"
+                    value={localWeekSales[week]?.salesUnits || ""}
+                    onChange={(e) =>
+                      handleInputChange(
+                        week,
+                        "salesUnits",
+                        Number(e.target.value)
+                      )
+                    }
+                  />
+                </div>
 
-            {/* Cost Input */}
-            <div>
-              <label>
-                Cost<span className="text-red-400">*</span>
-              </label>
-              <Input
-                placeholder="Cost"
-                type="number"
-                value={localWeekSales[week]?.cost || 0}
-                onChange={(e) =>
-                  handleInputChange(week, "cost", Number(e.target.value))
-                }
-              />
-            </div>
+                {/* Cost Input */}
+                <div>
+                  <label>
+                    Cost<span className="text-red-400">*</span>
+                  </label>
+                  <Input
+                    placeholder="Cost"
+                    type="number"
+                    value={localWeekSales[week]?.cost || ""}
+                    onChange={(e) =>
+                      handleInputChange(week, "cost", Number(e.target.value))
+                    }
+                  />
+                </div>
 
-            {/* Price Input */}
-            <div>
-              <label>
-                Price<span className="text-red-400">*</span>
-              </label>
-              <Input
-                placeholder="Price"
-                type="number"
-                value={localWeekSales[week]?.price || 0}
-                onChange={(e) =>
-                  handleInputChange(week, "price", Number(e.target.value))
-                }
-              />
+                {/* Price Input */}
+                <div>
+                  <label>
+                    Price<span className="text-red-400">*</span>
+                  </label>
+                  <Input
+                    placeholder="Price"
+                    type="number"
+                    value={localWeekSales[week]?.price || ""}
+                    onChange={(e) =>
+                      handleInputChange(week, "price", Number(e.target.value))
+                    }
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
     </Modal>
   );
 };
